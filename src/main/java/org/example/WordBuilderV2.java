@@ -9,6 +9,7 @@ public class WordBuilderV2 {
     private final StringBuilder stringBuilder;
     private final Stack<String> memory;
 
+
     public WordBuilderV2() {
         stringBuilder = new StringBuilder();
         memory = new Stack<>();
@@ -16,16 +17,13 @@ public class WordBuilderV2 {
 
     public void append(String text) {
         stringBuilder.append(text);
-        memory.push("append:" + text);
+        memory.push(text);
     }
 
     public void undo() {
         if (!memory.isEmpty()) {
             String lastAddition = memory.pop();
-            if (lastAddition.startsWith("append:")) {
-                String text = lastAddition.substring(7);
-                stringBuilder.delete(stringBuilder.length() - text.length(), stringBuilder.length());
-            }
+            stringBuilder.delete(stringBuilder.length() - lastAddition.length(), stringBuilder.length());
         }
     }
 
